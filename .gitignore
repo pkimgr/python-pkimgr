@@ -1,0 +1,13 @@
+.DS_Store
+.env
+.venv
+.venv/*
+.pytest_cache
+.pytest_cache/*
+.vscode
+.vscode/*
+src/pkimgrlib/__pycache__
+src/pkimgrlib/__pycache__/*
+src/pkimgrlib/*/__pycache__
+src/pkimgrlib/*/__pycache__/*
+unit_tests/__pycache__/*

@@ -1,0 +1,12 @@
+write_csr: False
+passphrase_policy:
+  chars: 'all'
+  length: 12
+
+cert_options:
+  country: 'UK'
+  state: 'London'
+  locality: 'London'
+  organization: 'wampixelandCo'
+  organizationalUnit: 'www.wampixel.uk'
+  validity: 365 # One year

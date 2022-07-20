@@ -1,0 +1,38 @@
+domain: 'file.uk'
+path: output
+
+authority:
+  name: 'authority'
+  passphrase: '123456789AZertyuiop'    
+  key: {type: rsa, value: 4096}
+
+certs:
+  certificate_1:
+    name: "final_cert1"
+    key: {type: rsa, value: 4096}
+  subauthority_1:
+    passphrase: 'TODO'
+    key: {type: rsa, value: 4096}
+    certs:
+      ldap:
+        passphrase: 'TODO'
+        key: {type: rsa, value: 4096}
+      ldap2:
+        passphrase: 'TODO'
+        key: {type: rsa, value: 4096}
+  subauthority_2:
+    passphrase: 'TODO'
+    key: {type: rsa, value: 4096}
+    certs:
+      sub_subauthority1:
+        is_authority: True
+        passphrase: 'TODO'
+        key: {type: rsa, value: 4096}
+        certs:
+          sso:
+            passphrase: 'TODO'
+            key: {type: rsa, value: 4096}
+      sub_subauthority2:
+        is_authority: True
+        passphrase: 'TODO'
+        key: {type: ec, value: secp256r1}

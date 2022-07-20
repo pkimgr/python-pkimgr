@@ -1,0 +1,6 @@
+pylint
+flake8
+cryptography >= 3.4.6
+pyaml >= 20.4.0
+coverage
+bump2version

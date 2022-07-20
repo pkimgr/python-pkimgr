@@ -1,0 +1,50 @@
+#!/usr/bin/env python3 -B
+"""CLI using the wpki module. This CLI is used to create certs and PKI"""
+import os
+import sys
+import argparse
+
+import yaml
+
+from pkimgrlib import BANNER, COLORS, PREFIX
+from pkimgrlib import cli, process_file
+from pkimgrlib.misc import get_logger
+
+if __name__ == '__main__':
+    print(BANNER)
+    parser = argparse.ArgumentParser(prog='PKI Manager tool', exit_on_error=True)
+    parser.add_argument('-c', '--cert_conf', type=str, help='Configuartion file for Certificate')
+    parser.add_argument('-p', '--pki_conf', type=str, help='Configuartion file for PKI')
+    try:
+        cliargs = parser.parse_args()
+    except argparse.ArgumentError:
+        parser.print_help()
+        sys.exit(1)
+    # Get Logger
+    LOGGER = get_logger('cli')
+    # Manage configuration file
+    if cliargs.cert_conf:
+        c_path = cliargs.cert_conf
+    else:
+        c_path = os.path.join(sys.prefix, 'pkimgr/default_conf/default_certificate.yaml')
+
+    with open(c_path, 'rb') as c_conf:
+        try:
+            C_CONF_D = yaml.safe_load(c_conf)
+        except (yaml.YAMLError, FileNotFoundError) as err:
+            print(f'{COLORS["red"]} Error while loading {c_path} {COLORS["normal"]}: {str(err)}')
+            sys.exit(1)
+    # If the PKI is provided with configuration file
+    if cliargs.pki_conf:
+        try:
+            with open(cliargs.pki_conf, 'rb') as p_conf:
+                pki_d = yaml.safe_load(p_conf)
+        except (yaml.YAMLError, FileNotFoundError) as err:
+            print(f'{COLORS["red"]} Error while loading {c_path} {COLORS["normal"]}: {str(err)}')
+            sys.exit(1)
+
+        if 'path' in pki_d:
+            process_file(pki_d['path'], C_CONF_D, pki_d, LOGGER)
+        process_file(PREFIX, C_CONF_D, pki_d, LOGGER)
+    else:
+        cli(PREFIX, C_CONF_D, LOGGER)
