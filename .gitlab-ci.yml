@@ -31,26 +31,27 @@ before_script:
   - pip install virtualenv
   - virtualenv venv
   - source venv/bin/activate
-  - pip install -r requirements
+  - pip install -r requirements.txt
 
 tox_Lint:
   stage: Checks
   script:
-    - pip install tox # you can also use tox
+    - pip install tox pylint flake8
     - tox -e pylint,flake8
   allow_failure: true
 
 tox_unittest:
   stage: Checks
   script:
-    - pip install tox
-    - tox -e unittests
+    - pip install tox coverage
+    - tox -e unittests,coverage
   allow_failure: true
 
 
 update_patch:
   stage: Build
   script:
+    - pip install bump2version
     - export PYTHONPATH=./src:$PYTHONPATH
     - git config --global user.email "${GITLAB_USER_MAIL}"
     - git config --global user.name "${GITLAB_USER_NAME}"
@@ -67,7 +68,7 @@ update_patch:
 update_minor:
   stage: Build
   script:
-    #- git clone "https://gitlab-ci-token:${CI_TOKEN}@gitlab.com/${CI_PROJECT_NAMESPACE}/${CI_PROJECT_NAME}.git"
+    - pip install bump2version
     - export PYTHONPATH=./src:$PYTHONPATH
     - git config --global user.email "${GITLAB_USER_MAIL}"
     - git config --global user.name "${GITLAB_USER_NAME}"
@@ -81,9 +82,10 @@ update_minor:
   only:
     - develop
 
-Create_wheel:
+new_tag:
   stage: Build
   script:
+    - pip install bump2version
     - export PYTHONPATH=./src:$PYTHONPATH
     - git config --global user.email "${GITLAB_USER_MAIL}"
     - git config --global user.name "${GITLAB_USER_NAME}"
@@ -95,5 +97,5 @@ Create_wheel:
     paths:
       - dist/*.whl
   only:
-    - main
+    - stable
 

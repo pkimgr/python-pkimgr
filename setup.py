@@ -5,6 +5,8 @@ from setuptools import setup
 
 from pkimgrlib import __version__
 
+with open('requirements.txt', 'r', encoding='UTF-8') as requirements_f:
+    requirements = requirements_f.read().splitlines()
 
 setup(name='Pkimgr',
       version=__version__,
@@ -13,16 +15,16 @@ setup(name='Pkimgr',
       maintainer='Wampixel',
       url='https://gitlab.com/pkimgr/python-pkimgr',
       python_requires=">= 3.8",
-      install_requires=[
-            'crytography >= 3.4.6',
-            'pyaml >= 20.4.0'
-      ],
-      packages=['pkimgrlib'],
+      install_requires=requirements,
+      packages=['pkimgrlib', 'pkimgrlib.pki', 'pkimgrlib.cli'],
       package_dir={
         'pkimgrlib': 'src/pkimgrlib',
       },
-      package_data={
-        'default_conf': ['default_conf/default_certificate.yaml', 'default_conf/logger.yaml'],
-      },
+      data_files=[
+        ('pkimgr/default_conf', [
+            'default_conf/default_certificate.yaml', 'default_conf/logger.yaml'
+        ]),
+        ('pkimgr/log', [])
+      ],
       scripts=['bin/pkimgr'],
      )
