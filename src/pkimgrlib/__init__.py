@@ -6,7 +6,7 @@ Maintainer: Wampixel
 Contact: Issue on https://gitlab.com/pkimgr/python-pkimgr
 """
 
-__version__ = "1.1.0"
+__version__ = "1.2.0"
 
 # Certs part
 from pkimgrlib.pki.pki import Pki
