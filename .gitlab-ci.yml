@@ -33,20 +33,39 @@ before_script:
   - source venv/bin/activate
   - pip install -r requirements.txt
 
-tox_Lint:
+.tox_lint:
   stage: Checks
   script:
     - pip install tox pylint flake8
     - tox -e pylint,flake8
   allow_failure: true
 
-tox_unittest:
+.tox_unittest:
   stage: Checks
   script:
     - pip install tox coverage
     - tox -e unittests,coverage
   allow_failure: true
 
+tox_lint_38:
+  extends: ".tox_lint"
+  image: python:3.8
+tox_lint_39:
+  extends: ".tox_lint"
+  image: python:3.9
+tox_lint_310:
+  extends: ".tox_lint"
+  image: python:3.10
+
+tox_unittest_38:
+  extends: ".tox_unittest"
+  image: python:3.8
+tox_unittest_39:
+  extends: ".tox_unittest"
+  image: python:3.9
+tox_unittest_310:
+  extends: ".tox_unittest"
+  image: python:3.10
 
 update_patch:
   stage: Build

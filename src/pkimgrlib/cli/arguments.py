@@ -13,7 +13,11 @@ def command_args() -> argparse.Namespace:
     Returns:
         argparse.Namespace: The namespace of parsed from sys.arg
     """
-    parser = argparse.ArgumentParser(prog='>>>', exit_on_error=False)
+    try:
+        parser = argparse.ArgumentParser(prog='>>>', exit_on_error=False)
+    except TypeError:
+        parser = argparse.ArgumentParser(prog='>>>')
+
     subparsers = parser.add_subparsers(help='List of managed objects', dest='action')
 
     subparsers.add_parser('quit', help='quit the CLI')

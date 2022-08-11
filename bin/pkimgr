@@ -12,7 +12,11 @@ from pkimgrlib.misc import get_logger
 
 if __name__ == '__main__':
     print(BANNER)
-    parser = argparse.ArgumentParser(prog='PKI Manager tool', exit_on_error=True)
+    try:
+        parser = argparse.ArgumentParser(prog='PKI Manager tool', exit_on_error=True)
+    except TypeError:
+        parser = argparse.ArgumentParser(prog='PKI Manager tool')
+
     parser.add_argument('-c', '--cert_conf', type=str, help='Configuartion file for Certificate')
     parser.add_argument('-p', '--pki_conf', type=str, help='Configuartion file for PKI')
     try:

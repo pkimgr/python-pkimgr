@@ -237,16 +237,16 @@ class CertX509:
         self.logger.info('Successfully generated EC key %s', self.key_path)
         return self.key_path
 
-    def generate_certificate(self, altnames: list[str]) -> str:
+    def generate_certificate(self, altnames: List[str]) -> str:
         """Generate the Cert file for the current Certificate
 
         Args:
-            altnames (list[str]): all altnames for the certificate (not used for authority)
+            altnames (List[str]): all altnames for the certificate (not used for authority)
 
         Returns:
             str: The path of the created certfile (.crt)
         """
-        assert isinstance(altnames, list), 'Altnames must be list of str'
+        assert isinstance(altnames, List), 'Altnames must be list of str'
         # Check that the current cname is ont altnames, append it if necessary
         if self.cname not in altnames:
             altnames.append(self.cname)
