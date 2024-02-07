@@ -1,9 +1,11 @@
 .DS_Store
 .env
-.venv
-.venv/*
+.venv*
+.venv*/*
 .pytest_cache
 .pytest_cache/*
+.tox
+.tox/*
 .vscode
 .vscode/*
 src/pkimgrlib/__pycache__

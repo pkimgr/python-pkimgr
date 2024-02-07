@@ -6,7 +6,7 @@ import string
 import logging
 import logging.config
 from random import choice
-
+from typing import List
 import yaml
 
 # Global vars
@@ -42,12 +42,12 @@ def get_logger(name: str) -> logging.Logger:
 ####################################################################################################
 #                                    Dict management
 ####################################################################################################
-def verify_dict_keys(source_d: dict, key_l: list[str]) -> list[str]:
+def verify_dict_keys(source_d: dict, key_l: List[str]) -> List[str]:
     """Verify if keys from key_l are present on dict and return the list of missing keys
 
     Args:
         source_d (dict): dict to verify
-        key_l (list): list of key needed on dict.
+        key_l (List): List of key needed on dict.
 
     Returns:
         list: The list of the key not present on dict
