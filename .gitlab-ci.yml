@@ -104,7 +104,7 @@ update_minor:
 new_tag:
   stage: Build
   script:
-    - pip install bump2version setuptools
+    - pip install bump2version setuptools wheel
     - export PYTHONPATH=./src:$PYTHONPATH
     - git config --global user.email "${GITLAB_USER_MAIL}"
     - git config --global user.name "${GITLAB_USER_NAME}"
